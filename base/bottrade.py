@@ -7,6 +7,7 @@ class BotTrade(object):
 		self.entryPrice = currentPrice
 		self.exitPrice = ""
 		self.output.log("Trade opened")
+		self.tradeProfit = ""
 		if (stopLoss):
 			self.stopLoss = currentPrice - stopLoss
 	
@@ -14,6 +15,7 @@ class BotTrade(object):
 		self.status = "CLOSED"
 		self.exitPrice = currentPrice
 		self.output.log("Trade closed")
+		self.tradeProfit = (self.exitPrice - self.entryPrice)
 
 	def tick(self, currentPrice):
 		if (self.stopLoss):
@@ -31,7 +33,10 @@ class BotTrade(object):
 			else:
 				tradeStatus = tradeStatus + "\033[91m"
 
-			tradeStatus = tradeStatus+str(self.exitPrice - self.entryPrice)+"\033[0m"
+			tradeStatus = tradeStatus+str(self.tradeProfit)+"\033[0m"
 
 		self.output.log(tradeStatus)
 	
+	def returnProfit(self):
+		self.output.log("profit issssssssssssssS" +str(self.tradeProtfit))
+		return self.tradeProfit

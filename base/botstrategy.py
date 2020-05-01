@@ -12,6 +12,7 @@ class BotStrategy(object):
 		self.currentClose = ""
 		self.numSimulTrades = 1
 		self.indicators = BotIndicators()
+		self.totalProfit = 0.0
 
 	def tick(self,candlestick):
 		self.currentPrice = float(candlestick.priceAverage)
@@ -25,6 +26,8 @@ class BotStrategy(object):
 		self.evaluatePositions()
 		self.updateOpenTrades()
 		self.showPositions()
+
+		self.output.log("Total Profit: "+str(self.totalProfit))
 
 	def evaluatePositions(self):
 		openTrades = []
@@ -48,5 +51,5 @@ class BotStrategy(object):
 	def showPositions(self):
 		for trade in self.trades:
 			trade.showTrade()
-
-		
+			if(vars(trade)["tradeProfit"]):
+				self.totalProfit = float(vars(trade)["tradeProfit"]) + self.totalProfit
