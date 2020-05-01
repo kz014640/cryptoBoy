@@ -12,3 +12,12 @@ Backtesting can be run using the following command on Part 3:
 starting point from: https://www.youtube.com/watch?v=GAXwLFfEx_0
 and 
 https://github.com/bwentzloff/trading-bot
+
+documentation for poloneix: https://docs.poloniex.com/#returndepositswithdrawals
+
+help: backtesting example:
+python bot.py -s 1506432417 -e 1506442417
+
+live: python bot.py
+
+deep learning guide: https://pythonprogramming.net/cryptocurrency-recurrent-neural-network-deep-learning-python-tensorflow-keras/
