@@ -10,9 +10,13 @@ class BotStrategy(object):
 		self.trades = []
 		self.currentPrice = ""
 		self.currentClose = ""
-		self.numSimulTrades = 1
+		self.numSimulTrades = 10
 		self.indicators = BotIndicators()
 		self.totalProfit = 0.0
+		self.minRSI = 30
+		self.maxRSI = 70
+		self.minMomentum = 103	
+		self.maxMomentum = 97	
 
 	def tick(self,candlestick):
 		self.currentPrice = float(candlestick.priceAverage)
@@ -21,13 +25,14 @@ class BotStrategy(object):
 		#self.currentClose = float(candlestick['close'])
 		#self.closes.append(self.currentClose)
 		
-		self.output.log("Price: "+str(candlestick.priceAverage)+"\tMoving Average: "+str(self.indicators.movingAverage(self.prices,15)))
+		#self.output.log("Price: "+str(candlestick.priceAverage)+"\tMoving Average: "+str(self.indicators.movingAverage(self.prices,15)))
 
 		self.evaluatePositions()
 		self.updateOpenTrades()
 		self.showPositions()
 
-		self.output.log("Total Profit: "+str(self.totalProfit))
+		#self.output.log("Total Profit: "+str(self.totalProfit)) 
+		return self.totalProfit
 
 	def evaluatePositions(self):
 		openTrades = []
@@ -38,9 +43,17 @@ class BotStrategy(object):
 		if (len(openTrades) < self.numSimulTrades):
 			if (self.currentPrice < self.indicators.movingAverage(self.prices,15)):
 				self.trades.append(BotTrade(self.currentPrice,stopLoss=.0001))
+			elif(self.indicators.RSI(self.prices,15) <= self.minRSI):
+				self.trades.append(BotTrade(self.currentPrice,stopLoss=.0001))
+			elif(self.indicators.momentum(self.prices,15) >= self.minMomentum):
+				self.trades.append(BotTrade(self.currentPrice,stopLoss=.0001))
 
 		for trade in openTrades:
 			if (self.currentPrice > self.indicators.movingAverage(self.prices,15)):
+				trade.close(self.currentPrice)
+			elif(self.indicators.RSI(self.prices,15) >= self.maxRSI):
+				trade.close(self.currentPrice)
+			elif(self.indicators.momentum(self.prices,15) <= self.maxMomentum):
 				trade.close(self.currentPrice)
 
 	def updateOpenTrades(self):

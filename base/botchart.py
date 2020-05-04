@@ -4,13 +4,12 @@ import pprint
 from botcandlestick import BotCandlestick
 
 class BotChart(object):
-	def __init__(self, exchange, pair, period, backtest=True):
+	def __init__(self, exchange, pair, period, backtest=True,startTime=0,endTime=0):
 		self.pair = pair
 		self.period = period
 
-		self.startTime = 1491048000
-		self.endTime = 1491591200
-
+		self.startTime = startTime
+		self.endTime = endTime
 		self.data = []
 		
 		if (exchange == "poloniex"):
@@ -39,3 +38,9 @@ class BotChart(object):
 		lastPairPrice = {}
 		lastPairPrice = currentValues[self.pair]["last"]
 		return lastPairPrice
+
+	def getUSDPrice(self):
+		currentValues = self.conn.api_query("returnTicker")
+		USD = {}
+		USD = currentValues["BTC_TUSD"]["last"]
+		return USD

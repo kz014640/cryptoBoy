@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 
 class BotIndicators(object):
 	def __init__(self):
