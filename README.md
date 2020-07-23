@@ -1,23 +1,3 @@
 # Cryptocurrency Trading Bot
 
-This bot is a work-in-progress and development can be followed on the Cryptocurrency Trading YouTube channel: https://youtube.com/cryptocurrencytrading
-
-Part 1 and Part 2 are included in this project for future viewers of those videos, but Part 3 is where active development is happening.
-
-Currently, only backtesting using the Poloniex API is supported, but plans for other exchanges and live trading are planned.
-
-Backtesting can be run using the following command on Part 3:
-`python backtest.py`
-
-starting point from: https://www.youtube.com/watch?v=GAXwLFfEx_0
-and 
-https://github.com/bwentzloff/trading-bot
-
-documentation for poloneix: https://docs.poloniex.com/#returndepositswithdrawals
-
-help: backtesting example:
-python bot.py -s 1506432417 -e 1506442417
-
-live: python bot.py
-
-deep learning guide: https://pythonprogramming.net/cryptocurrency-recurrent-neural-network-deep-learning-python-tensorflow-keras/
+This bot is a work-in-progress that looks to trade cryptocurrency automatically 
